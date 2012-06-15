@@ -1,0 +1,31 @@
+.x-tree-icon-parent
+{
+    background-image: url(http://cdn.dustball.com/folder.png) !important;
+}
+
+.x-tree-icon-leaf
+{
+    background-image: url(http://cdn.dustball.com/page_white.png) !important;
+}
+
+.x-ux-webdav-grid-icon .x-grid-cell-inner 
+{
+    background-repeat: no-repeat;
+    margin-left: 3px;
+    padding-left: 19px;
+}
+
+.x-ux-webdav-grid-icon-resource .x-grid-cell-inner 
+{
+    background-image: url(http://cdn.dustball.com/page_white.png);
+}
+
+.x-ux-webdav-grid-icon-collection .x-grid-cell-inner 
+{
+    background-image: url(http://cdn.dustball.com/folder.png);
+}
+
+.x-ux-webdav-mask-error div
+{
+    background-image: url(http://cdn.dustball.com/error.png);
+}
