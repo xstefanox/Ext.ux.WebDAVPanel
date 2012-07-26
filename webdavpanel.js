@@ -35,6 +35,9 @@ Ext.define('Ext.ux.WebDAV.Resource', {
             // save a reference to the tree
             record.tree = tree;
             
+            // mark the node as loaded
+            record.set('loaded', true);
+            
             return record;
         }
     }
@@ -118,7 +121,6 @@ Ext.define('Ext.ux.WebDAV.Panel', {
             region: 'west',
             // enable resizing of the panel
             split: true,
-            // @TODO: this could possibly be removed if the custom node interface will work
             animate: false,
             width: 300,
             // save a reference to the parent
@@ -188,13 +190,14 @@ Ext.define('Ext.ux.WebDAV.Panel', {
                     // if the resource node is a collection
                     if (resource instanceof Carcass.Collection) {
 
-//                        var node = this.appendChild(Ext.ux.WebDAV.Resource.fromCarcassResource(resource, this.tree));
+                        // add its resources
                         resource.children.forEach(add, node);
                     }
                 };
 
                 // if the root is a collection
                 if (root instanceof Carcass.Collection) {
+                
                     root.children.forEach(add, rootNode);
                 }
 

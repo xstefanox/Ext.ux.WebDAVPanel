@@ -1,0 +1,3 @@
+[submodule "Carcass"]
+	path = Carcass
+	url = git@github.com:xstefanox/Carcass.git
