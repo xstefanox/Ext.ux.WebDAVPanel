@@ -116,7 +116,7 @@ Ext.define('Ext.ux.WebDAV.Panel', {
         // create the treepanel
         this.add({
             // @TODO: remove this property
-            id: 'test',
+            id: 'test-tree',
             xtype: 'treepanel',
             region: 'west',
             // enable resizing of the panel
@@ -264,6 +264,8 @@ Ext.define('Ext.ux.WebDAV.Panel', {
         });
         
         this.add({
+            // @TODO: remove this property
+            id: 'test-grid',
             xtype: 'gridpanel',
             region: 'center',
             forceFit: true,
@@ -329,15 +331,81 @@ Ext.define('Ext.ux.WebDAV.Panel', {
                 }
             ],
             listeners: {
-                    itemdblclick: function(view, record, item, index, event, options) {
-                        
-                        // if the double-clicked item is a collection
-                        if (!record.isLeaf()) {
-                            
-                            // select the corresponding node in the tree
-                            view.ownerCt.ownerCt.child('treepanel').getSelectionModel().select(record);
-                        }
+                itemdblclick: function(view, record, item, index, event, options) {
+
+                    // if the double-clicked item is a collection
+                    if (!record.isLeaf()) {
+
+                        // select the corresponding node in the tree
+                        view.ownerCt.ownerCt.child('treepanel').getSelectionModel().select(record);
                     }
+                },
+                render: function() {
+                    
+                    var collection = new Ext.util.HashMap();
+                    
+                    this.body.on('dragenter', function(event) {
+                        
+                        console.log(collection);
+                        if (collection.getCount() === 0) {
+                            
+                            console.log('A file has been dragged into the window.');
+                        }
+                        
+                        collection.add(event.target, event.target);
+                        
+//                        event.stopPropagation();
+//                        event.preventDefault();
+//                        
+//                        var el = Ext.get(event.currentTarget);
+//                        el.addCls('x-ux-webdav-grid-dragHover');
+//                        console.log(el.dom);
+////                        if (!el.isMasked()) {
+////                            el.mask('Drop here to upload', 'x-ux-webdav-grid-dragHover');
+////                        }
+                        
+                    });
+                    
+                    this.body.on('dragleave', function(event) {
+                        
+                        /*
+                         * Firefox 3.6 fires the dragleave event on the previous element
+                         * before firing dragenter on the next one so we introduce a delay
+                         */
+                        setTimeout(function() {
+                            
+                            collection.removeAtKey(event.target);
+                            
+                            if (collection.getCount() === 0) {
+                                
+                                console.log('A file has been dragged out of window.');
+                            }
+                        }, 1);
+
+                        
+//                        event.stopPropagation();
+//                        event.preventDefault();
+//                        
+//                        var el = Ext.get(event.currentTarget);
+//                        //el.removeCls('x-ux-webdav-grid-dragHover');
+//                        //console.log(event);
+////                        var el = Ext.get(event.currentTarget);
+////                        var child = Ext.get(event.target);
+////                        
+////                        if (el.dom === child.dom) {
+////                            el.unmask();
+////                        }
+////                        
+////                        console.log(event.currentTarget);
+////                        console.log(event.target);
+                    });
+                    
+                    this.body.on('dragover', function(event) {
+                        
+                        event.stopPropagation();
+                        event.preventDefault();
+                    });
+                }
             }
         });
     }

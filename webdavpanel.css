@@ -29,3 +29,14 @@
 {
     background-image: url(http://cdn.dustball.com/error.png);
 }
+
+.x-mask-msg.x-ux-webdav-grid-dragHover div
+{
+    background-image: none;
+    padding-left: 10px;
+}
+
+.x-ux-webdav-grid-dragHover
+{
+    color: Red;
+}
